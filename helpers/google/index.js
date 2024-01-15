@@ -3,6 +3,7 @@ var functions     = require('./functions.js');
 var regRegions    = require('./regions.js');
 
 const {GoogleAuth}       = require('google-auth-library');
+const {JWT}              = require('google-auth-library');
 
 var async         = require('async');
 
@@ -11,21 +12,28 @@ var regions = function() {
 };
 
 var authenticate = async function(GoogleConfig) {
-    const auth = new GoogleAuth({
+if (GoogleConfig.private_key) {
+  const client = new JWT({
+        email: GoogleConfig.client_email,
+        key: GoogleConfig.private_key,
+        scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    });
+    return client;
+ }
+else {
+  const auth = new GoogleAuth({
         scopes: 'https://www.googleapis.com/auth/cloud-platform',
     });   
   const client = await auth.getClient();
   try {
-   if (!GoogleConfig.project) {
- const projectId = await auth.getProjectId();
-  GoogleConfig.project = projectId;
- }
-    return client;
+   const projectId = await auth.getProjectId();
+   GoogleConfig.project = projectId;
+   return client;
   } catch (e) {
     console.error('ERROR: Project ID is not specified. Please ensure you have set the project id using "gcloud config set project YOURPROJECTID"');
     process.exit(1);
-}
-};
+  }
+} };
 
 var processCall = function(GoogleConfig, collection, settings, regions, call, service, client, serviceCb) {
     // Loop through each of the service's functions
