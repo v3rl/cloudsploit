@@ -10,6 +10,10 @@ module.exports = {
     link: 'https://cloud.google.com/kms/docs/reference/permissions-and-roles',
     recommended_action: 'Ensure that your cryptographic keys are not accessible by allUsers or allAuthenticatedUsers.',
     apis: ['keyRings:list', 'cryptoKeys:list', 'cryptoKeys:getIamPolicy'],
+    compliance: {
+        cis1: '1.9 Ensure That Cloud KMS Cryptokeys Are Not Anonymously or Publicly Accessible'
+
+    },
 
     run: function(cache, settings, callback) {
         var results = [];
