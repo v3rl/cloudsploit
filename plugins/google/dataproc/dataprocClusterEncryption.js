@@ -20,6 +20,10 @@ module.exports = {
             default: 'cloudcmek'
         }
     },
+    compliance: {
+        cis2: '1.17 Ensure that Dataproc Cluster is encrypted using CustomerManaged Encryption Key'
+    },
+
     realtime_triggers: ['dataproc.ClusterController.CreateCluster', 'dataprocClusterController.DeleteCluster'],
 
     run: function(cache, settings, callback) {

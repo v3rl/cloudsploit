@@ -11,6 +11,10 @@ module.exports = {
     link: 'https://cloud.google.com/sql/docs/mysql/instance-settings',
     recommended_action: 'Ensure that all database instances are configured with automatic backups enabled.',
     apis: ['sql:list'],
+    compliance: {
+        cis1: '6.7 Ensure That Cloud SQL Database Instances Are Configured With Automated Backups'
+    },
+
     realtime_triggers:['cloudsql.instances.update','cloudsql.instances.delete'],
 
     run: function(cache, settings, callback) {

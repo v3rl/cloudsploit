@@ -11,6 +11,12 @@ module.exports = {
     link: 'https://cloud.google.com/dns/docs/dnssec',
     recommended_action: 'Ensure that all managed zones using DNSSEC are not using the RSASHA1 algorithm for key or zone signing.',
     apis: ['managedZones:list'],
+
+    compliance: {
+        cis1: '3.4 Ensure That RSASHA1 Is Not Used for the Key-Signing Key in Cloud DNS DNSSEC ' +
+              '3.5 Ensure That RSASHA1 Is Not Used for the Zone-Signing Key in Cloud DNS DNSSEC'
+    },
+
     realtime_triggers : ['dns.managedZones.create, dns.managedZones.delete', 'dns.managedZones.patch'],
     run: function(cache, settings, callback) {
         var results = [];

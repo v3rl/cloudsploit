@@ -11,6 +11,9 @@ module.exports = {
     link: 'https://cloud.google.com/storage/docs/access-control/iam',
     recommended_action: 'Ensure that each storage bucket is configured so that no member is set to allUsers or allAuthenticatedUsers.',
     apis: ['buckets:list','buckets:getIamPolicy'],
+    compliance: {
+        cis1: '5.1 Ensure That Cloud Storage Bucket Is Not Anonymously or Publicly Accessible'
+    },
     realtime_triggers: ['storage.buckets.create', 'storage.buckets.delete', 'storage.buckets.update'],
 
     run: function(cache, settings, callback) {

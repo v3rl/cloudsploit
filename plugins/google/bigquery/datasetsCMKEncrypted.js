@@ -20,7 +20,11 @@ module.exports = {
             default: 'cloudcmek'
         }
     },
+    compliance: {
+        cis2: '7.3 Ensure That a Default Customer-Managed Encryption Key (CMEK) Is Specified for All BigQuery Data Sets'
+    },
     realtime_triggers:['bigquery.DatasetService.InsertDataset','bigquery.DatasetService.DeleteDataset'],
+
 
     run: function(cache, settings, callback) {
         var results = [];

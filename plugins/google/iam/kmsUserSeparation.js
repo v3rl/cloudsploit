@@ -11,6 +11,9 @@ module.exports = {
     link: 'https://cloud.google.com/iam/docs/overview',
     recommended_action: 'Ensure that no service accounts have both the KMS admin role and any of CryptoKey roles attached.',
     apis: ['projects:getIamPolicy'],
+    compliance: {
+        cis2: '1.11 Ensure That Separation of Duties Is Enforced While Assigning KMS Related Roles to Users'
+    },
     realtime_triggers: ['iam.IAMPolicy.SetIamPolicy'],
 
     run: function(cache, settings, callback) {

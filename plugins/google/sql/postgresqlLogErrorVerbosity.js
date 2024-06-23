@@ -19,6 +19,11 @@ module.exports = {
             default: 'default'
         }
     },
+
+    compliance: {
+        cis2: '6.2.1 Ensure Log_error_verbosity Database Flag for Cloud SQL PostgreSQL Instance Is Set to DEFAULT or Stricter'
+    },
+    
     realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
 
     run: function(cache, settings, callback) {

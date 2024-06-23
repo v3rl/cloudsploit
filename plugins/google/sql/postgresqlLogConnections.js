@@ -11,6 +11,11 @@ module.exports = {
     link: 'https://cloud.google.com/sql/docs/postgres/flags',
     recommended_action: 'Ensure that log connections flag is enabled for all PostgreSQL instances.',
     apis: ['sql:list'],
+
+    compliance: {
+        cis1: '6.2.2 Ensure That the Log_connections Database Flag for Cloud SQL PostgreSQL Instance Is Set to On'
+    },
+
     realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
     
     run: function(cache, settings, callback) {

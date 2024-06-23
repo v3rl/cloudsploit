@@ -11,6 +11,9 @@ module.exports = {
     link: 'https://cloud.google.com/compute/confidential-vm/docs/about-cvm',
     recommended_action: 'Ensure that all VM instances have confidential computing enabled.',
     apis: ['compute:list'],
+    compliance: {
+        cis2: '4.11 Ensure That Compute Instances Have Confidential Computing Enabled'
+    },
     realtime_triggers: ['compute.instances.insert', 'compute.instances.delete'],
 
     run: function(cache, settings, callback) {

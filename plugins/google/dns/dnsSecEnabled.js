@@ -11,6 +11,9 @@ module.exports = {
     link: 'https://cloud.google.com/dns/docs/dnssec',
     recommended_action: 'Ensure DNSSEC is enabled for all managed zones in the cloud DNS service.',
     apis: ['managedZones:list'],
+    compliance: {
+        cis1: '3.3 Ensure That DNSSEC Is Enabled for Cloud DNS [Pass this CIS Benchmark if managed zone is Private]'
+    },
     realtime_triggers : ['dns.managedZones.create, dns.managedZones.delete', 'dns.managedZones.patch'],
 
     run: function(cache, settings, callback) {

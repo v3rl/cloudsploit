@@ -11,6 +11,9 @@ module.exports = {
     link: 'https://cloud.google.com/sql/docs/sqlserver/flags',
     recommended_action: 'Ensure that all SQL Server database instances have external scripts enabled flag set to disabled.',
     apis: ['sql:list'],
+    compliance: {
+        cis1: '6.3.1 Ensure External Scripts Enabled database flag for Cloud SQL Server instance is set to Off'
+    },
     realtime_triggers:['cloudsql.instances.update','cloudsql.instances.delete','cloudsql.instances.create'],
 
     run: function(cache, settings, callback) {

@@ -11,6 +11,11 @@ module.exports = {
     link: 'https://cloud.google.com/compute/docs/instances/interacting-with-serial-console',
     recommended_action: 'Ensure the Enable Connecting to Serial Ports option is disabled for all compute instances.',
     apis: ['compute:list'],
+
+    compliance: {
+        cis1: '4.5 Ensure Enable Connecting to Serial Ports Is Not Enabled for VM Instance'
+    },
+
     realtime_triggers: [ 'compute.instances.insert', 'compute.instances.delete', 'compute.instances.setMetadata'],
 
     run: function(cache, settings, callback) {

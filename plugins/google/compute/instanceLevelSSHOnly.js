@@ -11,6 +11,10 @@ module.exports = {
     link: 'https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys',
     recommended_action: 'Ensure project-wide SSH keys are blocked for all instances.',
     apis: ['compute:list'],
+    compliance: {
+        cis1: '4.3 Ensure Block Project-Wide SSH Keys Is Enabled for VM Instances'
+    },
+
     realtime_triggers: ['compute.instances.insert', 'compute.instances.delete', 'compute.instances.setMetadata'],
 
     run: function(cache, settings, callback) {
