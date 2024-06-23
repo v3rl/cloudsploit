@@ -34,7 +34,10 @@ module.exports = {
             return callback(null, results, source);
         }
 
+        var defaultServiceAccount = projects.data[0].defaultServiceAccount;         
         var project = projects.data[0].name;
+
+        if (!defaultServiceAccount) return callback(null, results, source);
 
         async.each(regions.compute, (region, rcb) => {
             var zones = regions.zones;
@@ -58,9 +61,13 @@ module.exports = {
 
                 instances.data.forEach(instance => {
                     let found = false;
+                    let found_default_sa;
                     if (instance.serviceAccounts && instance.serviceAccounts.length) {
+                      found_default_sa = instance.serviceAccounts.find(account => account.email == defaultServiceAccount)
+                        if (found_default_sa) {
                         found = instance.serviceAccounts.find(serviceAccount => serviceAccount.scopes &&
                             serviceAccount.scopes.indexOf('https://www.googleapis.com/auth/cloud-platform') > -1);
+                            }
                     }
 
                     let resource = helpers.createResourceName('instances', instance.name, project, 'zone', zone);
