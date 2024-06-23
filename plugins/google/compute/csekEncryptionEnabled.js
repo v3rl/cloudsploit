@@ -78,7 +78,7 @@ module.exports = {
     
                     if (disk.creationTimestamp &&
                         disk.diskEncryptionKey &&
-                        Object.keys(disk.diskEncryptionKey) &&
+                        Object.keys(disk.diskEncryptionKey).includes('sha256') &&
                         Object.keys(disk.diskEncryptionKey).length) {
                         helpers.addResult(results, 0,
                             'CSEK Encryption is enabled for disk', region, resource);
