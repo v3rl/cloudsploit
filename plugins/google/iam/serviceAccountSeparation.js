@@ -5,6 +5,7 @@ module.exports = {
     title: 'Service Account Separation',
     category: 'IAM',
     domain: 'Identity and Access Management',
+    severity: 'Medium',
     description: 'Ensures that no users have both the Service Account User and Service Account Admin role.',
     more_info: 'Ensuring that no users have both roles follows separation of duties, where no user should have access to resources out of the scope of duty.',
     link: 'https://cloud.google.com/iam/docs/overview',
@@ -13,6 +14,8 @@ module.exports = {
     compliance: {
         cis2: '1.8 Ensure That Separation of Duties Is Enforced While Assigning Service Account Related Roles to Users'
     },
+    realtime_triggers: ['iam.IAMPolicy.SetIamPolicy'],
+
 
     run: function(cache, settings, callback) {
         var results = [];

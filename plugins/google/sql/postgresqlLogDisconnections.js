@@ -5,6 +5,7 @@ module.exports = {
     title: 'PostgreSQL Log Disconnections Flag Enabled',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures SQL instances for PostgreSQL type have log disconnections flag enabled.',
     more_info: 'SQL instance for PostgreSQL databases provides log_disconnections flag. It is used to log every attempt to connect to the DB server. It is not enabled by default. Enabling it will make sure to log anyone who disconnects from the instance.',
     link: 'https://cloud.google.com/sql/docs/postgres/flags',
@@ -14,6 +15,7 @@ module.exports = {
         cis1: '6.2.3 Ensure That the Log_disconnections Database Flag for Cloud SQL PostgreSQL Instance Is Set to On'
     },
 
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
 
     run: function(cache, settings, callback) {
         var results = [];

@@ -5,6 +5,7 @@ module.exports = {
     title: 'Service Account Token Creator',
     category: 'IAM',
     domain: 'Identity and Access Management',
+    severity: 'Medium',
     description: 'Ensures that no users have the Service Account Token Creator role.',
     more_info: 'For best security practices, IAM users should not have Service Account Token Creator role.',
     link: 'https://cloud.google.com/iam/docs/overview',
@@ -13,7 +14,7 @@ module.exports = {
     compliance: {
         cis1: '1.6 Ensure That IAM Users Are Not Assigned the Service Account User or Service Account Token Creator Roles at Project Level'
     },
-
+    realtime_triggers: ['iam.IAMPolicy.SetIamPolicy'],
 
     run: function(cache, settings, callback) {
         var results = [];

@@ -5,6 +5,7 @@ module.exports = {
     title: 'SQL Cross DB Ownership Chaining',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures SQL database instances of SQL Server type have cross db ownership chaining flag disabled.',
     more_info: 'SQL databases of SQL Server provide cross DB ownership chaining flag. It is used to configure cross-database ownership chaining ' +
         'for all databases. It is enabled by default and should be disabled for security unless all required.',
@@ -14,7 +15,8 @@ module.exports = {
     compliance: {
         cis1: '6.3.2 Ensure that the Cross DB Ownership Chaining database flag for Cloud SQL Server instance is set to Off'
     },
-
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
+    
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};

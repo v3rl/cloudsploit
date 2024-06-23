@@ -5,6 +5,7 @@ module.exports = {
     title: 'Storage Bucket All Users Policy',
     category: 'Storage',
     domain: 'Storage',
+    severity: 'High',
     description: 'Ensures Storage bucket policies do not allow global write, delete, or read permissions',
     more_info: 'Storage buckets can be configured to allow the global principal to access the bucket via the bucket policy. This policy should be restricted only to known users or accounts.',
     link: 'https://cloud.google.com/storage/docs/access-control/iam',
@@ -13,6 +14,7 @@ module.exports = {
     compliance: {
         cis1: '5.1 Ensure That Cloud Storage Bucket Is Not Anonymously or Publicly Accessible'
     },
+    realtime_triggers: ['storage.buckets.create', 'storage.buckets.delete', 'storage.buckets.update'],
 
     run: function(cache, settings, callback) {
         var results = [];

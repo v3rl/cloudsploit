@@ -161,6 +161,15 @@ var serviceMap = {
             BridgeResourceNameIdentifier: 'name', BridgeExecutionService: 'SQL Databases',
             BridgeCollectionService: 'databases', DataIdentifier: 'data',
         },
+    'AI & ML': 
+        {
+            enabled: true, isSingleSource: true, InvAsset: 'account', InvService: 'openAI',
+            InvResourceCategory: 'ai&ml', InvResourceType: 'OpenAI Accounts', BridgeProvider: 'Azure', 
+            BridgeServiceName: 'openAI', BridgePluginCategoryName: 'AI & ML',
+            BridgeArnIdentifier: '', BridgeIdTemplate: '', BridgeResourceType: 'accounts',
+            BridgeResourceNameIdentifier: 'name', BridgeExecutionService: 'AI & ML',
+            BridgeCollectionService: 'openai', BridgeCall: 'listAccounts', DataIdentifier: 'data',
+        },
 };
 
 // Standard calls that contain top-level operations
@@ -181,10 +190,20 @@ var calls = {
         },
         sendIntegration: serviceMap['Log Alerts']
     },
+    logAnalytics: {
+        listWorkspaces: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.OperationalInsights/workspaces?api-version=2023-09-01'
+        }
+    },
     storageAccounts: {
         list: {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2019-06-01',
             rateLimit: 3000
+        }
+    },
+    containerApps:{
+        list: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.App/containerApps?api-version=2023-05-01'
         }
     },
     appConfigurations: {
@@ -209,6 +228,11 @@ var calls = {
             paginate: 'nextLink'
         }
     },
+    publicIpAddresses: {
+        list: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Network/publicIPAddresses?api-version=2023-06-01'
+        }
+    },
     images: {
         list: {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images?api-version=2022-08-01',
@@ -228,7 +252,7 @@ var calls = {
     },
     disks: {
         list: {
-            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/disks?api-version=2019-07-01'
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/disks?api-version=2023-04-02'
         }
     },
     networkSecurityGroups: {
@@ -307,7 +331,7 @@ var calls = {
     },
     profiles: {
         list: {
-            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Cdn/profiles?api-version=2019-04-15'
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Cdn/profiles?api-version=2024-02-01'
         },
         sendIntegration: serviceMap['CDN Profiles']
     },
@@ -353,6 +377,11 @@ var calls = {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/locks?api-version=2016-09-01'
         }
     },
+    machineLearning: {
+        listWorkspaces: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.MachineLearningServices/workspaces?api-version=2024-04-01'
+        }
+    },
     loadBalancers: {
         listAll: {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Network/loadBalancers?api-version=2020-03-01'
@@ -393,7 +422,7 @@ var calls = {
     },
     virtualMachineScaleSets: {
         listAll: {
-            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/virtualMachineScaleSets?api-version=2023-09-01'
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/virtualMachineScaleSets?api-version=2023-07-01'
         }
     },
     bastionHosts: {
@@ -461,7 +490,7 @@ var calls = {
     },
     eventGrid: {
         listDomains: {
-            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.EventGrid/domains?api-version=2021-06-01-preview'
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.EventGrid/domains?api-version=2023-12-15-preview'
         }
     },
     eventHub: {
@@ -479,6 +508,32 @@ var calls = {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Media/mediaservices?api-version=2023-01-01'
         }
 
+    },
+    computeGalleries: { 
+        list: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/galleries?api-version=2022-08-03'
+        }
+    },
+    batchAccounts: {
+        list: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Batch/batchAccounts?api-version=2024-02-01'
+        }
+    },
+    openAI: {
+        listAccounts: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/accounts?api-version=2023-05-01'
+        },
+        sendIntegration: serviceMap['AI & ML']
+    },
+    databricks: {
+        listWorkspaces: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Databricks/workspaces?api-version=2023-02-01'
+        }
+    },
+    apiManagementService: {
+        list: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.ApiManagement/service?api-version=2022-08-01'
+        }
     },
     // For CIEM
     aad: {
@@ -514,7 +569,12 @@ var calls = {
 
         }
     },
-   
+    synapse: {
+        listWorkspaces: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Synapse/workspaces?api-version=2021-06-01'
+        }
+    }
+
 };
 
 var postcalls = {
@@ -540,6 +600,20 @@ var postcalls = {
             url: 'https://management.azure.com/{id}?api-version=2022-04-01'
         }
     },
+    webhooks: {
+        listByAutomationAccounts: {
+            reliesOnPath: 'automationAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/webhooks?api-version=2015-10-31'
+        }
+    },
+    accountVariables: {
+        listByAutomationAccounts: {
+            reliesOnPath: 'automationAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/variables?api-version=2023-11-01'
+        }
+    },
     availabilitySets:{
         listByResourceGroup: {
             reliesOnPath: 'resourceGroups.list',
@@ -552,6 +626,25 @@ var postcalls = {
             reliesOnPath: 'databaseAccounts.list',
             properties: ['id'],
             url: 'https://management.azure.com/{id}/providers/Microsoft.Security/advancedThreatProtectionSettings/current?api-version=2017-08-01-preview'
+        },
+        listPostgresFlexibleServer: {
+            reliesOnPath: 'servers.listPostgresFlexibleServer',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/advancedThreatProtectionSettings?api-version=2023-06-01-preview'
+        }
+    },
+    sourceControls: {
+        listByAutomationAccounts: {
+            reliesOnPath: 'automationAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/sourceControls?api-version=2023-11-01'
+        }
+    },
+    automationAccounts:{
+        get: {
+            reliesOnPath: 'automationAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}?api-version=2023-11-01'
         }
     },
     backupProtectedItems: {
@@ -572,7 +665,7 @@ var postcalls = {
         get: {
             reliesOnPath: 'servers.listSql',
             properties: ['id'],
-            url: 'https://management.azure.com/{id}/auditingSettings?api-version=2017-03-01-preview'
+            url: 'https://management.azure.com/{id}/auditingSettings?api-version=2021-11-01'
         }
     },
     serverSecurityAlertPolicies: {
@@ -611,6 +704,13 @@ var postcalls = {
             url: 'https://management.azure.com/{id}/automaticTuning/current?api-version=2020-08-01-preview'
         }
     },
+    certificates: {
+        listByAutomationAccounts: {
+            reliesOnPath: 'automationAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/certificates?api-version=2023-11-01'
+        }
+    },  
     flowLogs: {
         list: {
             reliesOnPath: 'networkWatchers.listAll',
@@ -697,7 +797,8 @@ var postcalls = {
             reliesOnPath: 'storageAccounts.list',
             properties: ['id'],
             url: 'https://management.azure.com/{id}/blobServices/default/containers?api-version=2019-06-01',
-            rateLimit: 3000
+            rateLimit: 3000,
+            limit: 20000
         }
     },
     blobServices: {
@@ -718,7 +819,7 @@ var postcalls = {
         list: {
             reliesOnPath: 'storageAccounts.list',
             properties: ['id'],
-            url: 'https://management.azure.com/{id}/fileServices/default/shares?api-version=2019-06-01',
+            url: 'https://management.azure.com/{id}/fileServices/default/shares?api-version=2023-01-01',
             rateLimit: 3000
         }
     },
@@ -769,6 +870,13 @@ var postcalls = {
             post: true
         }
     },
+    containerApps: {
+        getAuthSettings : {
+            reliesOnPath: 'containerApps.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/authConfigs?api-version=2023-05-01',
+        }
+    }, 
     endpoints: {
         listByProfile: {
             reliesOnPath: 'profiles.list',
@@ -977,8 +1085,29 @@ var postcalls = {
             url: 'https://management.azure.com/subscriptions/{id}/securityPolicies?api-version=2023-05-01'
 
         }
-    }
-    
+    },
+    connectionPolicies: {
+        listByServer: {
+            reliesOnPath: 'servers.listSql',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/connectionPolicies?api-version=2021-05-01-preview'
+
+        }
+    },
+    diskEncryptionSet: {
+        get: {
+            reliesOnPath: 'disks.list',
+            properties: ['encryption.diskEncryptionSetId'],
+            url: 'https://management.azure.com/{encryption.diskEncryptionSetId}?api-version=2023-04-02',
+        }
+    },
+    encryptionScopes: {
+        listByStorageAccounts: {
+            reliesOnPath: 'storageAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/encryptionScopes?api-version=2023-01-01'
+        }
+    },
 };
 
 var tertiarycalls = {
@@ -994,6 +1123,23 @@ var tertiarycalls = {
             reliesOnPath: 'endpoints.listByProfile',
             properties: ['id'],
             url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByBlobServices: {
+            reliesOnPath: 'storageAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/blobServices/default/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByQueueServices: {
+            reliesOnPath: 'storageAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/queueServices/default/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+
+        },
+        listByTableServices: {
+            reliesOnPath: 'storageAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/tableServices/default/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+
         },
         listByAzureFrontDoor: {
             reliesOnPath: 'profiles.list',
@@ -1015,10 +1161,15 @@ var tertiarycalls = {
             properties: ['id'],
             url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
         },
+        listByDatabaseAccounts: {
+            reliesOnPath: 'databaseAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
         listByNetworkSecurityGroup: {
             reliesOnPath: 'networkSecurityGroups.listAll',
             properties: ['id'],
-            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2017-05-01-preview'
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
         },
         listByRecoveryServiceVault: {
             reliesOnPath: 'recoveryServiceVaults.listBySubscriptionId',
@@ -1074,8 +1225,58 @@ var tertiarycalls = {
             reliesOnPath: 'automationAccounts.list',
             properties: ['id'],
             url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
-        }
-        
+        },
+        listByOpenAIAccounts: {
+            reliesOnPath: 'openAI.listAccounts',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByDatabase: {
+            reliesOnPath: 'databases.listByServer',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByAppServices: {
+            reliesOnPath: 'webApps.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByBastionHosts: {
+            reliesOnPath: 'bastionHosts.listAll',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByMachineLearningWorkspce: {
+            reliesOnPath: 'machineLearning.listWorkspaces',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+
+        },
+        listByDatabricksWorkspace: {
+            reliesOnPath: 'databricks.listWorkspaces',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByEventGridDomains: {
+            reliesOnPath: 'eventGrid.listDomains',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByEventHubs:{
+            reliesOnPath: 'eventHub.listEventHub',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByBatchAccounts: {
+            reliesOnPath: 'batchAccounts.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
+        listByMysqlFlexibleServer: {
+            reliesOnPath: 'servers.listMysqlFlexibleServer',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        },
     },
     backupShortTermRetentionPolicies: {
         listByDatabase: {
@@ -1132,6 +1333,13 @@ var tertiarycalls = {
             reliesOnPath: 'redisCaches.listBySubscription',
             properties: ['id'],
             url: 'https://management.azure.com/{id}/patchSchedules?api-version=2023-08-01'
+        }
+    },
+    currentSensitivityLabels: {
+        list: {
+            reliesOnPath: 'databases.listByServer',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/currentSensitivityLabels?api-version=2021-11-01'
         }
     },
 };

@@ -5,12 +5,14 @@ module.exports = {
     title: 'Database Ledger Enabled',
     category: 'SQL Databases',
     domain: 'Databases',
+    severity: 'Low',
     description: 'Ensure ledger is enabled for SQL databases.',
     more_info: 'Azure ledger helps protect the integrity of data by enabling customers to use cryptographic seals on their data. The database ledger incrementally captures the state of a database as the database evolves over time, while updates occur on ledger tables',
     recommended_action: 'Enable Azure ledger for all SQL databases.',
     link: 'https://learn.microsoft.com/en-us/sql/relational-databases/security/ledger/ledger-overview?view=sql-server-ver16',
     apis: ['servers:listSql', 'databases:listByServer'],
-    
+    realtime_triggers: ['microsoftsql:servers:write', 'microsoftsql:servers:delete', 'microsoftsql:servers:databases:write', 'microsoftsql:servers:databases:delete'],
+
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};
@@ -46,16 +48,18 @@ module.exports = {
                     } else {
                         // Loop through databases
                         databases.data.forEach(database => {
-                          
-                            if (database.isLedgerOn) {
-                                helpers.addResult(results, 0, 'Ledger is enabled for SQL database', location, database.id);
-                            } else {
-                                helpers.addResult(results, 2, 'Ledger is not enabled for SQL database', location, database.id);
+
+                            if (database.name && database.name.toLowerCase() !== 'master') {
+
+                                if (database.isLedgerOn) {
+                                    helpers.addResult(results, 0, 'Ledger is enabled for SQL database', location, database.id);
+                                } else {
+                                    helpers.addResult(results, 2, 'Ledger is not enabled for SQL database', location, database.id);
+                                }
                             }
-                                
                         });
                     }
-                    
+
                 }
             });
 

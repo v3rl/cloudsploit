@@ -5,6 +5,7 @@ module.exports = {
     title: 'Service Account Admin',
     category: 'IAM',
     domain: 'Identity and Access Management',
+    severity: 'Medium',
     description: 'Ensures that user managed service accounts do not have any admin, owner, or write privileges.',
     more_info: 'Service accounts are primarily used for API access to Google. It is recommended to not use admin access for service accounts.',
     link: 'https://cloud.google.com/iam/docs/overview',
@@ -13,6 +14,7 @@ module.exports = {
     compliance: {
         cis1: '1.5 Ensure That Service Account Has No Admin Privileges'
     },
+    realtime_triggers: ['iam.IAMPolicy.SetIamPolicy'],
 
     run: function(cache, settings, callback) {
         var results = [];

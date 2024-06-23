@@ -5,6 +5,7 @@ module.exports = {
     title: 'DNS Security Enabled',
     category: 'DNS',
     domain: 'Content Delivery',
+    severity: 'Medium',
     description: 'Ensures that DNS Security is enabled on all managed zones',
     more_info: 'DNS Security is a feature that authenticates all responses to domain name lookups. This prevents attackers from committing DNS hijacking or man in the middle attacks.',
     link: 'https://cloud.google.com/dns/docs/dnssec',
@@ -13,7 +14,7 @@ module.exports = {
     compliance: {
         cis1: '3.3 Ensure That DNSSEC Is Enabled for Cloud DNS [Pass this CIS Benchmark if managed zone is Private]'
     },
-
+    realtime_triggers : ['dns.managedZones.create, dns.managedZones.delete', 'dns.managedZones.patch'],
 
     run: function(cache, settings, callback) {
         var results = [];

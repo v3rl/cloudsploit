@@ -5,6 +5,7 @@ module.exports = {
     title: 'Service Account Key Rotation',
     category: 'IAM',
     domain: 'Identity and Access Management',
+    severity: 'Medium',
     description: 'Ensures that service account keys are rotated within desired number of days.',
     more_info: 'Service account keys should be rotated so older keys that that might have been lost or compromised cannot be used to access Google services.',
     link: 'https://cloud.google.com/iam/docs/creating-managing-service-account-keys',
@@ -27,7 +28,8 @@ module.exports = {
              'rotated.',
         cis1: '1.7 Ensure User-Managed/External Keys for Service Accounts Are Rotated Every 90 Days or Fewer'
     },
-
+    realtime_triggers: ['iam.admin.CreateServiceAccountKey', 'iam.admin.CreateServiceAccount','iam.admin.DeleteServiceAccountKey', 'iam.admin.DeleteServiceAccount'],
+ 
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};
@@ -52,10 +54,12 @@ module.exports = {
                 helpers.addResult(results, 0, 'No service account keys found', region);
                 return rcb();
             }
+            var userManagedKeyFound = false;
 
             keys.data.forEach(key => {
                 if (key.keyType &&
                     key.keyType === 'USER_MANAGED') {
+                    userManagedKeyFound = true;
                     var validAfterTime = key.validAfterTime.split('T')[0];
 
                     var timeFromCreation = new Date().getTime() - new Date(validAfterTime).getTime();
@@ -69,6 +73,10 @@ module.exports = {
                     }
                 }
             });
+
+            if (!userManagedKeyFound) {
+                helpers.addResult(results, 0, 'No user managed service account keys found', region);
+            }
 
             rcb();
         }, function(){

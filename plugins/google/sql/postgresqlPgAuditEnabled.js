@@ -5,6 +5,7 @@ module.exports = {
     title: 'PostgreSQL Pg Audit Flag Enabled',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures SQL instances for PostgreSQL type have cloudsql.enable_pgaudit flag enabled for centralized logging.',
     more_info: 'SQL instance for PostgreSQL databases provides cloudsql.enable_pgaudit flag which provides detailed session and object logging to comply with government, financial, & ISO standards and provides auditing capabilities to mitigate threats by monitoring security events on the instance.',
     link: 'https://cloud.google.com/sql/docs/postgres/flags',
@@ -14,6 +15,8 @@ module.exports = {
         cis1: '6.2.9 Ensure That cloudsql.enable_pgaudit Database Flag for each Cloud Sql Postgresql Instance Is Set to on For Centralized Logging'
     },
 
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
+    
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};

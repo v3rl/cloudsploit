@@ -5,6 +5,7 @@ module.exports = {
     title: 'Dataset All Users Policy',
     category: 'BigQuery',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensure that BigQuery datasets do not allow public read, write or delete access.',
     more_info: 'Granting permissions to allUsers or allAuthenticatedUsers allows anyone to access the dataset. Such access might not be desirable if sensitive data is being stored in the dataset.',
     link: 'https://cloud.google.com/bigquery/docs/dataset-access-controls',
@@ -13,6 +14,7 @@ module.exports = {
     compliance: {
         cis1: '7.1 Ensure That BigQuery Datasets Are Not Anonymously or Publicly Accessible'
     },
+    realtime_triggers: ['iam.IAMPolicy.SetIamPolicy','bigquery.DatasetService.InsertDataset','bigquery.DatasetService.DeleteDataset'],
 
     run: function(cache, settings, callback) {
         var results = [];

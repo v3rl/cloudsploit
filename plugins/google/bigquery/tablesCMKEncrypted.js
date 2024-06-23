@@ -5,6 +5,7 @@ module.exports = {
     title: 'Tables CMK Encrypted',
     category: 'BigQuery',
     domain: 'Databases',
+    severity: 'High',
     description: 'Ensure that BigQuery dataset tables are encrypted using desired encryption protection level.',
     more_info: 'By default Google encrypts all dataset tables using Google-managed encryption keys. To have more control over the encryption process of your BigQuery dataset tables you can use Customer-Managed Keys (CMKs).',
     link: 'https://cloud.google.com/bigquery/docs/customer-managed-encryption',
@@ -22,6 +23,9 @@ module.exports = {
     compliance: {
         cis2: '7.2 Ensure That All BigQuery Tables Are Encrypted With CustomerManaged Encryption Key (CMEK)'
     },
+
+    realtime_triggers: ['bigquery.TableService.InsertTable','bigquery.TableService.DeleteTable'],
+
 
     run: function(cache, settings, callback) {
         var results = [];

@@ -53,6 +53,8 @@ var locations = [
     'canadaeast',           // (Canada) Canada East
     'qatarcentral',         // (Middle East) Qatar
     'polandcentral',        // (Europe) Poland Central
+    'italynorth',           // (Europe) Italy North
+    'israelcentral',        // (Middle East) Israel Central
 ];
 
 module.exports = {
@@ -124,5 +126,15 @@ module.exports = {
     classicFrontDoors: ['global'],
     afdWafPolicies: ['global'],
     appConfigurations: locations,
-    automationAccounts: locations    
+    automationAccounts: locations,
+    openAI: locations,
+    logAnalytics: locations,
+    publicIpAddresses: locations,
+    computeGalleries: locations,
+    databricks: locations,
+    containerApps: locations,
+    batchAccounts: locations,
+    machineLearning: locations,
+    apiManagementService: locations,
+    synapse: locations
 };

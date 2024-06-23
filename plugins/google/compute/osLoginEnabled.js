@@ -5,6 +5,7 @@ module.exports = {
     title: 'OS Login Enabled',
     category: 'Compute',
     domain: 'Compute',
+    severity: 'Low',
     description: 'Ensures OS login is enabled for the project',
     more_info: 'Enabling OS login ensures that SSH keys used to connect to instances are mapped with IAM users.',
     link: 'https://cloud.google.com/compute/docs/instances/managing-instance-access',
@@ -16,6 +17,7 @@ module.exports = {
             'such as SSH.',
         cis1: '4.4 Ensure Oslogin Is Enabled for a Project'
     },
+    realtime_triggers: ['compute.projects.insert', 'compute.projects.delete'],
 
     run: function(cache, settings, callback) {
         var results = [];

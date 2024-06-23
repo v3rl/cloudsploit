@@ -5,6 +5,7 @@ module.exports = {
     title: 'PostgreSQL Log Min Error Statement',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures SQL instances for PostgreSQL type have log min error statement flag set to Error.',
     more_info: 'SQL instance for PostgreSQL databases provides log_min_error_statement flag. It is used to mention/tag that the error messages. Setting it to Error value will help to find the error messages appropriately.',
     link: 'https://cloud.google.com/sql/docs/postgres/flags',
@@ -18,10 +19,13 @@ module.exports = {
             default: 'ERROR'
         }
     },
+
    compliance: {
         cis1: '6.2.7 Ensure Log_min_error_statement Database Flag for Cloud SQL PostgreSQL Instance Is Set to Error or Stricter'
     },
 
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
+    
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};

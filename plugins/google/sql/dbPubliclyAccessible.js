@@ -5,6 +5,7 @@ module.exports = {
     title: 'DB Publicly Accessible',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures that SQL instances do not allow public access',
     more_info: 'Unless there is a specific business requirement, SQL instances should not have a public endpoint and should only be accessed from within a VPC.',
     link: 'https://cloud.google.com/sql/docs/mysql/authorize-networks',
@@ -21,6 +22,7 @@ module.exports = {
             'and use proper jump box access mechanisms.',
         cis1: '6.5 Ensure That Cloud SQL Database Instances Do Not Implicitly Whitelist All Public IP Addresses',
     },
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
 
     run: function(cache, settings, callback) {
         var results = [];

@@ -5,15 +5,18 @@ module.exports = {
     title: 'PostgreSQL Log Min Duration Statement',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures SQL instances for PostgreSQL type have log min duration statement flag disabled.',
     more_info: 'SQL instance for PostgreSQL databases provides log_min_duration_statement flag. It is used to log the duration of every completed statement. This should always be disabled as there can be sensitive information as well that should not be recorded in the logs.',
     link: 'https://cloud.google.com/sql/docs/postgres/flags',
     recommended_action: 'Ensure that log_min_duration_statement flag is disabled for all PostgreSQL instances.',
     apis: ['sql:list'],
+
     compliance: {
         cis1: '6.2.8 Ensure That the Log_min_duration_statement Database Flag for Cloud SQL PostgreSQL Instance Is Set to -1 (Disabled)'
     },
 
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
 
     run: function(cache, settings, callback) {
         var results = [];

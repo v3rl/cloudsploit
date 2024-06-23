@@ -5,6 +5,7 @@ module.exports = {
     title: 'SQL Configuration Logging',
     category: 'Logging',
     domain: 'Management and Governance',
+    severity: 'Medium',
     description: 'Ensures that logging and log alerts exist for SQL configuration changes',
     more_info: 'Project Ownership is the highest level of privilege on a project, any changes in SQL configurations should be heavily monitored to prevent unauthorized changes.',
     link: 'https://cloud.google.com/logging/docs/logs-based-metrics/',
@@ -15,6 +16,7 @@ module.exports = {
             'including access and all actions taken.',
         cis1: '2.11 Ensure That the Log Metric Filter and Alerts Exist for SQL Instance Configuration Changes'
     },
+    realtime_triggers: ['logging.MetricsServiceV2.CreateLogMetric', 'logging.MetricsServiceV2.DeleteLogMetric', 'cloudsql.instances.delete','cloudsql.instances.create'],
 
     run: function(cache, settings, callback) {
         var results = [];

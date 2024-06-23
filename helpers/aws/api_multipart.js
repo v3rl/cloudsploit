@@ -48,7 +48,7 @@ var calls = [
                 property: 'collectionSummaries'
             },
             listNetworkSecurityPolicies: {
-                override: true, 
+                override: true,
             },
             listEncryptionSecurityPolicies:{
                 override: true,
@@ -128,7 +128,7 @@ var calls = [
                 paginate: 'NextToken',
             },
             getModelInvocationLoggingConfiguration: {
-                property: 'loggingConfig', 
+                property: 'loggingConfig',
                 paginate: 'NextToken'
             }
         },
@@ -397,7 +397,6 @@ var calls = [
                             Values: [
                                 'pending',
                                 'running',
-                                'shutting-down',
                                 'stopping',
                                 'stopped'
                             ]
@@ -839,6 +838,10 @@ var calls = [
             describeDBClusters: {
                 property: 'DBClusters',
                 paginate: 'Marker'
+            },
+            describeDBInstances: {
+                property: 'DBInstances',
+                paginate: 'Marker'
             }
         },
         Organizations: {
@@ -1041,6 +1044,9 @@ var calls = [
             describeHub: {
                 property: '',
                 paginate: 'NextToken'
+            },
+            getFindings: {
+                paginate: 'NextToken'
             }
         },
         Transfer: {
@@ -1196,6 +1202,12 @@ var postcalls = [
                 reliesOnCall: 'getRestApis',
                 filterKey: 'restApiId',
                 filterValue: 'id'
+            },
+            getRequestValidators: {
+                reliesOnService: 'apigateway',
+                reliesOnCall: 'getRestApis',
+                filterKey: 'restApiId',
+                filterValue: 'id'
             }
         },
         AppConfig: {
@@ -1328,17 +1340,17 @@ var postcalls = [
             getRdsMetricStatistics: {
                 reliesOnService: 'rds',
                 reliesOnCall: 'describeDBInstances',
-                override: true, 
+                override: true,
             },
             getRdsWriteIOPSMetricStatistics: {
                 reliesOnService: 'rds',
                 reliesOnCall: 'describeDBInstances',
-                override: true, 
+                override: true,
             },
             getRdsReadIOPSMetricStatistics: {
                 reliesOnService: 'rds',
                 reliesOnCall: 'describeDBInstances',
-                override: true, 
+                override: true,
             }
         },
         ConfigService: {
@@ -1406,6 +1418,14 @@ var postcalls = [
                 reliesOnCall: 'listInstances',
                 override: true
             }
+        },
+        DocDB: {
+            listTagsForResource: {
+                reliesOnService: 'docdb',
+                reliesOnCall: 'describeDBClusters',
+                filterKey: 'ResourceName',
+                filterValue: 'DBClusterArn'            
+            },
         },
         DynamoDB: {
             describeTable: {
@@ -1784,7 +1804,13 @@ var postcalls = [
                 filterKey: 'StackName',
                 filterValue: 'StackName',
                 rateLimit: 500 // ms to rate limit between stacks
-            }
+            },
+            getTemplate: {
+                reliesOnService: 'cloudformation',
+                reliesOnCall: 'listStacks',
+                filterKey: 'StackName',
+                filterValue: 'StackName'
+            },
         },
         WAFRegional: {
             listResourcesForWebACL: {
@@ -1800,6 +1826,12 @@ var postcalls = [
                 reliesOnCall: 'listWebACLs',
                 override: true,
                 rateLimit: 600
+            },
+            getLoggingConfiguration: {
+                reliesOnService: 'wafv2',
+                reliesOnCall: 'listWebACLs',
+                filterKey: 'ResourceArn',
+                filterValue: 'ARN'
             },
             getWebACLForCognitoUserPool: {
                 reliesOnService: 'cognitoidentityserviceprovider',
@@ -1970,6 +2002,12 @@ var postcalls = [
                 filterValue: 'FunctionName',
                 rateLimit: 500, // it's not documented but experimentally 10/second works.
             },
+            getFunction: {
+                reliesOnService: 'lambda',
+                reliesOnCall: 'listFunctions',
+                filterKey: 'FunctionName',
+                filterValue: 'FunctionName',
+            },
             listTags: {
                 reliesOnService: 'lambda',
                 reliesOnCall: 'listFunctions',
@@ -1977,6 +2015,18 @@ var postcalls = [
                 filterValue: 'FunctionArn'
             },
             getFunctionUrlConfig :{
+                reliesOnService: 'lambda',
+                reliesOnCall: 'listFunctions',
+                filterKey: 'FunctionName',
+                filterValue: 'FunctionName',
+            },
+            getFunctionConfiguration: {
+                reliesOnService: 'lambda',
+                reliesOnCall: 'listFunctions',
+                filterKey: 'FunctionName',
+                filterValue: 'FunctionName'
+            },
+            getFunctionCodeSigningConfig : {
                 reliesOnService: 'lambda',
                 reliesOnCall: 'listFunctions',
                 filterKey: 'FunctionName',
@@ -2357,12 +2407,12 @@ var postcalls = [
             getNetworkSecurityPolicy: {
                 reliesOnService: 'opensearchserverless',
                 reliesOnCall: 'listNetworkSecurityPolicies',
-                override: true,   
+                override: true,
             },
             getEncryptionSecurityPolicy: {
                 reliesOnService: 'opensearchserverless',
                 reliesOnCall: 'listEncryptionSecurityPolicies',
-                override: true,   
+                override: true,
             }
         }
     },

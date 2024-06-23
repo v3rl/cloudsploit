@@ -5,6 +5,7 @@ module.exports = {
     title: 'KMS User Separation',
     category: 'IAM',
     domain: 'Identity and Access Management',
+    severity: 'Medium',
     description: 'Ensures that no users have the KMS admin role and any one of the CryptoKey roles.',
     more_info: 'Ensuring that no users have the KMS admin role and any one of the CryptoKey roles follows separation of duties, where no user should have access to resources out of the scope of duty.',
     link: 'https://cloud.google.com/iam/docs/overview',
@@ -13,6 +14,7 @@ module.exports = {
     compliance: {
         cis2: '1.11 Ensure That Separation of Duties Is Enforced While Assigning KMS Related Roles to Users'
     },
+    realtime_triggers: ['iam.IAMPolicy.SetIamPolicy'],
 
     run: function(cache, settings, callback) {
         var results = [];

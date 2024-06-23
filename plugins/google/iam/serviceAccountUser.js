@@ -5,6 +5,7 @@ module.exports = {
     title: 'Service Account User',
     category: 'IAM',
     domain: 'Identity and Access Management',
+    severity: 'High',
     description: 'Ensures that no users have the Service Account User role.',
     more_info: 'The Service Account User role gives users the access to all service accounts of a project. This can result in an elevation of privileges and is not recommended.',
     link: 'https://cloud.google.com/iam/docs/overview',
@@ -13,6 +14,7 @@ module.exports = {
     compliance: {
         cis1: '1.6 Ensure That IAM Users Are Not Assigned the Service Account User or Service Account Token Creator Roles at Project Level'
     },
+    realtime_triggers: ['iam.IAMPolicy.SetIamPolicy'],
 
     run: function(cache, settings, callback) {
         var results = [];

@@ -5,6 +5,7 @@ module.exports = {
     title: 'Confidential Computing Enabled',
     category: 'Compute',
     domain: 'Compute',
+    severity: 'Medium',
     description: 'Ensure that Virtual Machine instances have confidential computing enabled.',
     more_info: 'Confidential computing allows your sensitive data to be encrypted in memory while it is being processesd and does not allow Google to have access to the encryption keys. Enabling confidential computing can help alleviate risks about Google insiders access to your confidential data.',
     link: 'https://cloud.google.com/compute/confidential-vm/docs/about-cvm',
@@ -13,6 +14,7 @@ module.exports = {
     compliance: {
         cis2: '4.11 Ensure That Compute Instances Have Confidential Computing Enabled'
     },
+    realtime_triggers: ['compute.instances.insert', 'compute.instances.delete'],
 
     run: function(cache, settings, callback) {
         var results = [];

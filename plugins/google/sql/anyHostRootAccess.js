@@ -5,6 +5,7 @@ module.exports = {
     title: 'Any Host Root Access',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'High',
     description: 'Ensures SQL instances root user cannot be accessed from any host',
     more_info: 'Root access for SQL instance should only be allowed from whitelisted IPs to ensure secure access only from trusted entities.',
     link: 'https://cloud.google.com/sql/docs/mysql/create-manage-users',
@@ -14,6 +15,8 @@ module.exports = {
         cis1: '6.1.1 Ensure That a MySQL Database Instance Does Not Allow Anyone To Connect With Administrative Privileges'
     },
 
+    realtime_triggers: ['cloudsql.users.delete','cloudsql.users.create'],
+    
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};

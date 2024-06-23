@@ -5,6 +5,7 @@ module.exports = {
     title: 'PostgreSQL Log Error Verbosity',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensure SQL instances for PostgreSQL type have log error verbosity flag set to default or stricter.',
     more_info: 'SQL instance for PostgreSQL databases provides log_error_verbosity flag to control the verbosity/details of the messages logged. if this flag is not set correctly too many or too few statements can be logged which can cause problems while troubleshooting.',
     link: 'https://cloud.google.com/sql/docs/postgres/flags',
@@ -18,9 +19,12 @@ module.exports = {
             default: 'default'
         }
     },
-     compliance: {
+
+    compliance: {
         cis2: '6.2.1 Ensure Log_error_verbosity Database Flag for Cloud SQL PostgreSQL Instance Is Set to DEFAULT or Stricter'
     },
+    
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
 
     run: function(cache, settings, callback) {
         var results = [];

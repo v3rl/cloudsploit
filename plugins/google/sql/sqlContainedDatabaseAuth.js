@@ -5,6 +5,7 @@ module.exports = {
     title: 'SQL Contained Database Authentication',
     category: 'SQL',
     domain: 'Databases',
+    severity: 'Medium',
     description: 'Ensures SQL instances of SQL Server type have Contained Database Authentication flag disabled.',
     more_info: 'Enabling Contained Database Authentication flag allows users to connect to the database without authenticating ' +
         'a login at the Database Engine level along with other security threats.',
@@ -15,6 +16,8 @@ module.exports = {
         cis1: '6.3.7 Ensure that the Contained Database Authentication database flag for Cloud SQL on the SQL Server instance is set to Off'
     },
 
+    realtime_triggers:['cloudsql.instances.delete','cloudsql.instances.create','cloudsql.instances.update'],
+    
     run: function(cache, settings, callback) {
         var results = [];
         var source = {};

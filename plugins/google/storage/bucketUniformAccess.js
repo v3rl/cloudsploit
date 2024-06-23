@@ -5,6 +5,7 @@ module.exports = {
     title: 'Bucket Uniform Level Access',
     category: 'Storage',
     domain: 'Storage',
+    severity: 'Medium',
     description: 'Ensures that uniform level access is enabled on storage buckets.',
     more_info: 'Uniform level access for buckets can be used for managing access in a simple way. It enables us to use other security features like IAM conditions.',
     link: 'https://cloud.google.com/storage/docs/uniform-bucket-level-access#should-you-use',
@@ -19,6 +20,7 @@ module.exports = {
     compliance: {
         cis2: '5.2 Ensure That Cloud Storage Buckets Have Uniform Bucket-Level Access Enabled'
     },
+    realtime_triggers: ['storage.buckets.update', 'storage.buckets.create','storage.buckets.delete'],
   
     run: function(cache, settings, callback) {
         var results = [];
