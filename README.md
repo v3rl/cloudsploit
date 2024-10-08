@@ -147,6 +147,7 @@ Note: For GCP, you [generate a JSON file](docs/gcp.md) directly from the GCP con
     "private_key": "GCPPRIVATEKEY"
 }
 ```
+Update: You can use GCP user account for running cloudsploit. Please check config_example.js file's gcp section  for further details.
 
 #### Oracle OCI
 ```
