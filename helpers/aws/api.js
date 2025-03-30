@@ -1561,7 +1561,9 @@ var calls = {
             paginate: 'NextToken'
         },
         getFindings: {
-            paginate: 'NextToken'
+            property: 'Findings',
+            paginate: 'NextToken',
+            override: true
         }
     },
     SageMaker: {
@@ -1831,8 +1833,14 @@ var postcalls = [
                 reliesOnCall: 'listAnalyzers',
                 override: true
             },
+            listFindingsV2: {
+                reliesOnService: 'accessanalyzer',
+                reliesOnCall: 'listAnalyzers',
+                override: true
+            },
             sendIntegration: serviceMap['IAM'][0]
         },
+        
         APIGateway: {
             getStages: {
                 reliesOnService: 'apigateway',
@@ -2109,7 +2117,6 @@ var postcalls = [
                 filterKey: 'id',
                 filterValue: 'projectId'
             },
-            sendIntegration: serviceMap['CodeStar']
         },
         CustomerProfiles: {
             getDomain: {
@@ -2175,7 +2182,7 @@ var postcalls = [
                 reliesOnService: 'docdb',
                 reliesOnCall: 'describeDBClusters',
                 filterKey: 'ResourceName',
-                filterValue: 'DBClusterArn' 
+                filterValue: 'DBClusterArn'
             },
             sendIntegration: serviceMap['DocumentDB']
         },
@@ -2683,7 +2690,7 @@ var postcalls = [
                 reliesOnCall: 'listFunctions',
                 filterKey: 'FunctionName',
                 filterValue: 'FunctionName',
-                rateLimit: 100, // it's not documented but experimentially 10/second works.
+                rateLimit: 100, // it's not documented but experimental 10/second works.
             },
             getFunction: {
                 reliesOnService: 'lambda',
@@ -3015,8 +3022,7 @@ var postcalls = [
             getRole: {
                 reliesOnService: 'iam',
                 reliesOnCall: 'listRoles',
-                filterKey: 'RoleName',
-                filterValue: 'RoleName'
+                override: true
             },
             getUser: {
                 reliesOnService: 'iam',

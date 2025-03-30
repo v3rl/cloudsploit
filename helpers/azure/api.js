@@ -161,10 +161,10 @@ var serviceMap = {
             BridgeResourceNameIdentifier: 'name', BridgeExecutionService: 'SQL Databases',
             BridgeCollectionService: 'databases', DataIdentifier: 'data',
         },
-    'AI & ML': 
+    'AI & ML':
         {
             enabled: true, isSingleSource: true, InvAsset: 'account', InvService: 'openAI',
-            InvResourceCategory: 'ai&ml', InvResourceType: 'OpenAI Accounts', BridgeProvider: 'Azure', 
+            InvResourceCategory: 'ai&ml', InvResourceType: 'OpenAI Accounts', BridgeProvider: 'Azure',
             BridgeServiceName: 'openAI', BridgePluginCategoryName: 'AI & ML',
             BridgeArnIdentifier: '', BridgeIdTemplate: '', BridgeResourceType: 'accounts',
             BridgeResourceNameIdentifier: 'name', BridgeExecutionService: 'AI & ML',
@@ -197,7 +197,7 @@ var calls = {
     },
     storageAccounts: {
         list: {
-            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2019-06-01',
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2023-05-01',
             rateLimit: 3000
         }
     },
@@ -297,6 +297,11 @@ var calls = {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.ContainerService/managedClusters?api-version=2020-03-01'
         }
     },
+    managedInstances: {
+        list: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Sql/managedInstances?api-version=2021-11-01'
+        }
+    },
     networkWatchers: {
         listAll: {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Network/networkWatchers?api-version=2022-01-01'
@@ -380,7 +385,11 @@ var calls = {
     machineLearning: {
         listWorkspaces: {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.MachineLearningServices/workspaces?api-version=2024-04-01'
-        }
+        },
+        listRegistries: {
+            url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.MachineLearningServices/registries?api-version=2024-04-01'
+        },
+
     },
     loadBalancers: {
         listAll: {
@@ -509,7 +518,7 @@ var calls = {
         }
 
     },
-    computeGalleries: { 
+    computeGalleries: {
         list: {
             url: 'https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/galleries?api-version=2022-08-03'
         }
@@ -621,6 +630,13 @@ var postcalls = {
             url: 'https://management.azure.com/{id}/providers/Microsoft.Compute/availabilitySets?api-version=2020-12-01'
         }
     },
+    resources: {
+        listByResourceGroup: {
+            reliesOnPath: 'resourceGroups.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/resources?api-version=2021-04-01'
+        }
+    },
     advancedThreatProtection: {
         get: {
             reliesOnPath: 'databaseAccounts.list',
@@ -710,7 +726,7 @@ var postcalls = {
             properties: ['id'],
             url: 'https://management.azure.com/{id}/certificates?api-version=2023-11-01'
         }
-    },  
+    },
     flowLogs: {
         list: {
             reliesOnPath: 'networkWatchers.listAll',
@@ -845,6 +861,13 @@ var postcalls = {
             url: 'https://management.azure.com/{id}/encryptionProtector?api-version=2015-05-01-preview'
         },
     },
+    managedInstanceEncryptionProtectors: {
+        listByInstance: {
+            reliesOnPath: 'managedInstances.list',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/encryptionProtector?api-version=2024-05-01-preview'
+        },
+    },
     webApps: {
         getAuthSettings: {
             reliesOnPath: 'webApps.list',
@@ -876,7 +899,7 @@ var postcalls = {
             properties: ['id'],
             url: 'https://management.azure.com/{id}/authConfigs?api-version=2023-05-01',
         }
-    }, 
+    },
     endpoints: {
         listByProfile: {
             reliesOnPath: 'profiles.list',
@@ -1277,6 +1300,11 @@ var tertiarycalls = {
             properties: ['id'],
             url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
         },
+        listByWorkspaces: {
+            reliesOnPath: 'synapse.listWorkspaces',
+            properties: ['id'],
+            url: 'https://management.azure.com/{id}/providers/microsoft.insights/diagnosticSettings?api-version=2021-05-01-preview'
+        }
     },
     backupShortTermRetentionPolicies: {
         listByDatabase: {
